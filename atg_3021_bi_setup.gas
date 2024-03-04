@@ -1,0 +1,587 @@
+﻿Program.Sub.ScreenSU.Start
+Gui.F_Main..create
+Gui.F_Main..caption("BI Auto Print Setup")
+Gui.F_Main..size(7215,8745)
+Gui.F_Main..position(0,0)
+Gui.F_Main..event(UnLoad,f_main_unload)
+Gui.F_Main..forecolor(0)
+Gui.F_Main..fontstyle(,,,)
+Gui.F_Main..BackColor(-2147483633)
+Gui.F_Main..mousepointer(0)
+Gui.F_Main..sizeable(False)
+Gui.F_Main..MinX(0)
+Gui.F_Main..MinY(0)
+Gui.F_Main.frmEmail.create(frame)
+Gui.F_Main.frmEmail.caption("Email Options")
+Gui.F_Main.frmEmail.size(6630,2775)
+Gui.F_Main.frmEmail.position(200,4800)
+Gui.F_Main.gsflexgrid2.create(gsflexgrid)
+Gui.F_Main.gsflexgrid2.size(6405,1680)
+Gui.F_Main.gsflexgrid2.position(100,1000)
+Gui.F_Main.gsflexgrid2.parent("frmEmail")
+Gui.F_Main.lbl5.create(label,"Subject",True,1935,255,1,110,245,True,0,Arial,8,,0)
+Gui.F_Main.lbl5.parent("frmEmail")
+Gui.F_Main.lbl6.create(label,"Recipients",True,1935,255,1,135,795,True,0,Arial,8,,0)
+Gui.F_Main.lbl6.parent("frmEmail")
+Gui.F_Main.txtSubject.create(textbox,"",True,3135,300,0,100,445,True,0,Arial,8,,1)
+Gui.F_Main.txtSubject.parent("frmEmail")
+Gui.F_Main.txtSubject.maxLength(150)
+Gui.F_Main.txtSubject.tabstop(True)
+Gui.F_Main.txtSubject.tabindex(11)
+Gui.F_Main.cboFrom.create(combobox)
+Gui.F_Main.cboFrom.size(2250,330)
+Gui.F_Main.cboFrom.position(3290,445)
+Gui.F_Main.cboFrom.parent("frmEmail")
+Gui.F_Main.cboFrom.tabstop(True)
+Gui.F_Main.cboFrom.tabindex(12)
+Gui.F_Main.lbl7.create(label,"Default From",True,1935,255,1,3315,245,True,0,Arial,8,,0)
+Gui.F_Main.lbl7.parent("frmEmail")
+Gui.F_Main.txtID.create(textbox,"",True,840,300,0,200,410,True,0,Arial,8,,1)
+Gui.F_Main.txtID.tabstop(True)
+Gui.F_Main.txtID.tabindex(1)
+Gui.F_Main.cmdBrowseBI.create(button)
+Gui.F_Main.cmdBrowseBI.caption("^")
+Gui.F_Main.cmdBrowseBI.size(345,315)
+Gui.F_Main.cmdBrowseBI.position(1105,400)
+Gui.F_Main.cmdBrowseBI.event(Click,cmdbrowsebi_click)
+Gui.F_Main.cmdBrowseBI.tabstop(True)
+Gui.F_Main.cmdBrowseBI.tabindex(2)
+Gui.F_Main.txtDescription.create(textbox,"",True,2865,300,0,3045,415,True,0,Arial,8,,1)
+Gui.F_Main.txtDescription.maxLength(150)
+Gui.F_Main.txtDescription.tabstop(True)
+Gui.F_Main.txtDescription.tabindex(5)
+Gui.F_Main.lbl1.create(label,"ID",True,1935,255,1,200,200,True,0,Arial,8,,0)
+Gui.F_Main.lbl2.create(label,"Description",True,1935,255,1,3065,200,True,0,Arial,8,,0)
+Gui.F_Main.chkActivePrint.create(checkbox)
+Gui.F_Main.chkActivePrint.caption("Auto Print")
+Gui.F_Main.chkActivePrint.size(1110,255)
+Gui.F_Main.chkActivePrint.position(900,845)
+Gui.F_Main.chkActivePrint.tabstop(True)
+Gui.F_Main.chkActivePrint.tabindex(6)
+Gui.F_Main.gsflexgrid1.create(gsflexgrid)
+Gui.F_Main.gsflexgrid1.size(6615,2775)
+Gui.F_Main.gsflexgrid1.position(200,2000)
+Gui.F_Main.cmdSave.create(button)
+Gui.F_Main.cmdSave.caption("Save")
+Gui.F_Main.cmdSave.size(855,375)
+Gui.F_Main.cmdSave.position(200,7800)
+Gui.F_Main.cmdSave.event(Click,cmdsave_click)
+Gui.F_Main.cmdSave.tabstop(True)
+Gui.F_Main.cmdSave.tabindex(13)
+Gui.F_Main.txtPrinter.create(textbox,"",True,3675,300,0,200,1090,True,0,Arial,8,,1)
+Gui.F_Main.txtPrinter.maxLength(100)
+Gui.F_Main.txtPrinter.tabstop(True)
+Gui.F_Main.txtPrinter.tabindex(8)
+Gui.F_Main.lbl3.create(label,"Printer",True,1935,255,1,210,845,True,0,Arial,8,,0)
+Gui.F_Main.cmdBrowsePrinter.create(button)
+Gui.F_Main.cmdBrowsePrinter.caption("^")
+Gui.F_Main.cmdBrowsePrinter.size(345,315)
+Gui.F_Main.cmdBrowsePrinter.position(3950,1060)
+Gui.F_Main.cmdBrowsePrinter.event(Click,cmdbrowseprinter_click)
+Gui.F_Main.cmdBrowsePrinter.tabstop(True)
+Gui.F_Main.cmdBrowsePrinter.tabindex(9)
+Gui.F_Main.txtCopies.create(textbox,"1",True,510,300,0,4375,1100,True,2,Arial,8,,1)
+Gui.F_Main.txtCopies.tabstop(True)
+Gui.F_Main.txtCopies.tabindex(10)
+Gui.F_Main.lbl4.create(label,"Copies",True,645,255,1,4375,855,True,0,Arial,8,,0)
+Gui.F_Main.chkEmail.create(checkbox)
+Gui.F_Main.chkEmail.caption("Auto Email")
+Gui.F_Main.chkEmail.size(1230,255)
+Gui.F_Main.chkEmail.position(1995,845)
+Gui.F_Main.chkEmail.tabstop(True)
+Gui.F_Main.chkEmail.tabindex(7)
+Gui.F_Main.cmdBrowseActive.create(button)
+Gui.F_Main.cmdBrowseActive.caption("^")
+Gui.F_Main.cmdBrowseActive.size(345,315)
+Gui.F_Main.cmdBrowseActive.position(2500,400)
+Gui.F_Main.cmdBrowseActive.event(Click,cmdbrowsebi_click)
+Gui.F_Main.cmdBrowseActive.tabstop(True)
+Gui.F_Main.cmdBrowseActive.tabindex(4)
+Gui.F_Main.cmdDelete.create(button)
+Gui.F_Main.cmdDelete.caption("Delete")
+Gui.F_Main.cmdDelete.size(855,375)
+Gui.F_Main.cmdDelete.position(1115,7800)
+Gui.F_Main.cmdDelete.event(Click,cmddelete_click)
+Gui.F_Main.cmdDelete.tabstop(True)
+Gui.F_Main.cmdDelete.tabindex(14)
+Gui.F_Main.txtSeq.create(textbox,"",True,825,315,0,1600,400,True,0,Arial,8,,1)
+Gui.F_Main.txtSeq.tabstop(True)
+Gui.F_Main.txtSeq.tabindex(3)
+Gui.F_Main.lbl8.create(label,"Sequence",True,1935,255,1,1600,200,True,0,Arial,8,,0)
+Gui.F_Main.lbl9.create(label,"Run",True,1935,255,1,200,1400,True,0,Arial,8,,0)
+Gui.F_Main.dlRun.create(dropdownlist)
+Gui.F_Main.dlRun.size(2835,330)
+Gui.F_Main.dlRun.position(200,1600)
+Gui.F_Main.dpStart.create(datepicker)
+Gui.F_Main.dpStart.size(1455,315)
+Gui.F_Main.dpStart.position(3900,1600)
+Gui.F_Main.lbl10.create(label,"Start",True,735,255,1,3900,1400,True,0,Arial,8,,0)
+Gui.F_Main.lblLast.create(label,"Last Run:",True,2490,255,1,4245,7700,True,0,Arial,8,,0)
+Gui.F_Main.lbl13.create(label,"Day",True,705,255,1,3100,1400,True,0,Arial,8,,0)
+Gui.F_Main.dlDay.create(dropdownlist)
+Gui.F_Main.dlDay.size(735,330)
+Gui.F_Main.dlDay.position(3100,1600)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+V.Local.sQuery.Declare(String)
+V.Local.iC.Declare(Long)
+
+F.ODBC.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.PUser,V.Ambient.PPass)
+
+F.Intrinsic.Control.CallSub(Checktable)
+Gui.F_Main.gsflexgrid1.SetProperty("enter",2)
+Gui.F_Main.gsflexgrid2.SetProperty("enter",2)
+Gui.F_Main.gsflexgrid1.Rows(15)
+Gui.F_Main.gsflexgrid1.Cols(2)
+Gui.F_Main.gsflexgrid1.FixedRows(1)
+
+Gui.F_Main.gsflexgrid1.TextMatrix(0,0,"Parameter")
+Gui.F_Main.gsflexgrid1.TextMatrix(1,0,"Value")
+'Gui.F_Main.gsflexgrid1.TextMatrix(2,0,"Is Date")
+
+Gui.F_Main.gsflexgrid1.ColWidth(0,2500)
+Gui.F_Main.gsflexgrid1.Colwidth(1,3500)
+
+Gui.F_Main.gsflexgrid1.BuildStyle(1,0,"format","maxlength",20)
+Gui.F_Main.gsflexgrid1.BuildStyle(1,1,"format","maxlength",40)
+'Gui.F_Main.gsflexgrid1.BuildStyle(1,2,"format","alignment",4)
+'Gui.F_Main.gsflexgrid1.BuildStyle(1,2,"type","checkbox","")
+
+Gui.F_Main.gsflexgrid2.Rows(6)
+Gui.F_Main.gsflexgrid2.Cols(1)
+Gui.f_main.gsflexgrid2.TextMatrix(0,0,"Address")
+Gui.F_Main.gsflexgrid2.ColWidth(0,7000)
+Gui.F_Main.gsflexgrid1.Fixedrows(1)
+Gui.F_Main.gsflexgrid2.Fixedrows(1)
+F.Intrinsic.Control.For(V.Local.iC,1,31,1)
+	Gui.F_Main.dlDay.AddItem(V.Local.iC)
+F.Intrinsic.Control.Next(V.Local.iC)
+
+'Start date will be reset after each run
+
+Gui.F_Main.dlRun.AddItem(" ")
+'Run for current date
+Gui.F_Main.dlRun.AddItem("Daily")
+
+'Run for current week
+Gui.F_Main.dlRun.AddItem("Weekly")
+
+'run for current week only from monday through friday
+Gui.F_Main.dlRun.AddItem("Monthly")
+
+'Run for selected day Monthly no range
+Gui.F_Main.dlRun.AddItem("Quarterly")
+'
+''run for 1st to last day of month
+'Gui.F_Main.dlRun.AddItem("First to Last Day of Month")
+
+'Run for for 1 year from
+Gui.F_Main.dlRun.AddItem("Yearly")
+
+F.Global.Security.GetAllUsers(V.Caller.CompanyCode,V.Local.sQuery)
+F.Intrinsic.string.Split(V.Local.sQuery,"*!*",V.Local.sQuery)
+F.Intrinsic.Control.For(V.Local.ic,0,V.Local.sQuery.UBound,1)
+	Gui.F_Main.cboFrom.AddItem(V.Local.sQuery(v.Local.iC))
+F.Intrinsic.Control.Next(V.Local.iC)
+Gui.F_Main..Show
+F.Intrinsic.Control.For(V.Local.ic,1,14,1)
+	Gui.F_Main.gsflexgrid1.ApplyStyle(V.Local.iC,1)
+F.Intrinsic.Control.Next(V.Local.iC)
+
+
+Program.Sub.Main.End
+
+Program.Sub.f_main_unload.Start
+F.ODBC.Connection!conx.Close
+
+F.Intrinsic.Control.End
+
+Program.Sub.f_main_unload.End
+
+Program.Sub.cmdbrowsebi_click.Start
+'Method to browse Reports
+F.Intrinsic.Debug.Stop
+
+V.Local.sCol.Declare(String)
+V.Local.sColW.Declare(String)
+V.Local.sRet.Declare(String)
+V.Local.sQuery.Declare(String)
+F.Intrinsic.Control.CallSub(Clear)
+
+''F.Intrinsic.String.Split("ID*!*Description*!*File","*!*",V.Local.sCol)
+''F.Intrinsic.String.split("1000*!*3000*!*3000","*!*",V.Local.sColW)
+''F.Intrinsic.Control.If(V.Args.CONTROLNAME,=,"CMDBROWSEBI")
+''	F.Intrinsic.String.Split("ID*!*Description*!*File*!*Seq","*!*",V.Local.sCol)
+''	F.Intrinsic.String.split("1000*!*3000*!*3000*!*0","*!*",V.Local.sColW)
+''	F.Intrinsic.UI.Browser("Select a Report","conx","select DISTINCT RPT_ID, DESCRIPTION, CRYSTAL_FILE_NAME, ' ' as seq  from BI_RPT WHERE ACTIVE_FLAG = 'Y'",V.Local.sCol,V.Local.sColW,V.Local.sret)
+''F.Intrinsic.Control.Else
+''	F.Intrinsic.String.Split("ID*!*Description*!*File*!*Seq","*!*",V.Local.sCol)
+''	F.Intrinsic.String.split("1000*!*3000*!*3000*!*1000","*!*",V.Local.sColW)
+''	F.Intrinsic.UI.Browser("Select a Report","conx","select DISTINCT BI_RPT.RPT_ID,  ATG_3021_BI_RPTS_SET.DESCRIPTION, BI_RPT.CRYSTAL_FILE_NAME, ATG_3021_BI_RPTS_SET.SEQ from BI_RPT, ATG_3021_BI_RPTS_SET WHERE BI_RPT.RPT_ID = ATG_3021_BI_RPTS_SET.RPT_ID AND BI_RPT.ACTIVE_FLAG = 'Y' ORDER BY ATG_3021_BI_RPTS_SET.RPT_ID, ATG_3021_BI_RPTS_SET.SEQ",V.Local.sCol,V.Local.sColW,V.Local.sret)
+''F.Intrinsic.Control.endif
+
+'F.Intrinsic.UI.Browser(90000,,V.Local.sRet)
+
+'F.Intrinsic.Control.If(V.Local.sRet,"<>","***CANCEL***")
+'	F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+'	Gui.F_Main.txtID.Text(V.Local.sRet(0))
+'	Gui.F_Main.txtDescription.Text(V.Local.sRet(1))
+'	F.Intrinsic.Control.If(V.Local.sRet(3).trim,=,"")
+'		F.Intrinsic.String.Concat("SELECT TOP 1 SEQ  FROM ATG_3021_BI_RPTS_SET WHERE RPT_ID = '",V.Local.sRet(0),"' ORDER BY SEQ DESC",V.Local.sQuery)
+'		F.ODBC.Connection!conx.OpenRecordsetRO("rstSeq",V.Local.sQuery)
+'		F.Intrinsic.Control.If(V.ODBC.conx!rstSeq.EOF,=,False)
+'			F.Intrinsic.Math.Add(V.ODBC.conx!rstSeq.FieldValLong!SEQ,1,V.Local.sRet(3))
+'		F.Intrinsic.Control.Else
+'			V.Local.sRet(3).set(0)
+'		F.Intrinsic.Control.EndIf
+'		F.odbc.conx!rstSeq.close
+'	F.Intrinsic.Control.endif
+'	Gui.F_Main.txtSeq.Text(V.Local.sRet(3))
+'	'load options
+'	F.Intrinsic.Control.CallSub(Loadoptions)
+'	'load paramaters
+'	F.Intrinsic.Control.CallSub(Loadparams)
+'F.Intrinsic.Control.endif
+
+F.Intrinsic.String.Split("ID*!*Description*!*File","*!*",V.Local.sCol)
+F.Intrinsic.String.split("1000*!*3000*!*3000","*!*",V.Local.sColW)
+F.Intrinsic.Control.If(V.Args.CONTROLNAME,=,"CMDBROWSEBI")
+	F.Intrinsic.UI.Browser(90000,,V.Local.sRet)
+	F.Intrinsic.Control.If(V.Local.sRet,"<>","***CANCEL***")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		Gui.F_Main.txtID.Text(V.Local.sRet(0))
+		Gui.F_Main.txtDescription.Text(V.Local.sRet(1))
+		F.Intrinsic.String.Concat("SELECT TOP 1 SEQ  FROM ATG_3021_BI_RPTS_SET WHERE RPT_ID = '",V.Local.sRet(0),"' ORDER BY SEQ DESC",V.Local.sQuery)
+		F.ODBC.Connection!conx.OpenRecordsetRO("rstSeq",V.Local.sQuery)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstSeq.EOF,=,False)
+			F.Intrinsic.Math.Add(V.ODBC.conx!rstSeq.FieldValLong!SEQ,1,V.Local.sRet(2))
+		F.Intrinsic.Control.EndIf
+		F.odbc.conx!rstSeq.close
+		Gui.F_Main.txtSeq.Text(V.Local.sRet(2))
+		'load options
+		F.Intrinsic.Control.CallSub(Loadoptions)
+		'load paramaters
+		F.Intrinsic.Control.CallSub(Loadparams)
+	F.Intrinsic.Control.endif
+
+F.Intrinsic.Control.Else
+	F.Intrinsic.String.Split("ID*!*Description*!*Seq","*!*",V.Local.sCol)
+	F.Intrinsic.String.split("1200*!*3500*!*1000","*!*",V.Local.sColW)
+	F.Intrinsic.UI.Browser("Select a Report","conx","select RPT_ID,DESCRIPTION, SEQ from ATG_3021_BI_RPTS_SET ORDER BY RPT_ID, SEQ",V.Local.sCol,V.Local.sColW,V.Local.sret)
+	F.Intrinsic.Control.If(V.Local.sRet,"<>","***CANCEL***")
+		F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+		Gui.F_Main.txtID.Text(V.Local.sRet(0))
+		Gui.F_Main.txtDescription.Text(V.Local.sRet(1))
+		Gui.F_Main.txtSeq.Text(V.Local.sRet(2))
+		'load options
+		F.Intrinsic.Control.CallSub(Loadoptions)
+		'load paramaters
+		F.Intrinsic.Control.CallSub(Loadparams)
+	F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.endif
+
+
+Program.Sub.cmdbrowsebi_click.End
+
+Program.Sub.cmdsave_click.Start
+V.Local.sQuery.Declare(String)
+V.Local.shold.Declare(String)
+V.Local.iR.Declare(Long)
+V.Local.irows.Declare(Long)
+V.Local.iSeq.Declare(Long)
+Gui.F_Main.gsflexgrid1.commit
+Gui.F_Main.gsflexgrid2.commit
+
+F.Intrinsic.Control.If(V.Screen.F_Main!txtCopies.Text,=,"")
+	Gui.F_Main.txtCopies.Text("1")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.String.Concat("SELECT * FROM ATG_3021_BI_RPTS_SET WHERE RPT_ID = '",V.Screen.F_Main!txtID.Text,"' AND SEQ = ",V.Screen.F_Main!txtSeq.text,V.Local.sQuery)
+
+F.ODBC.Connection!conx.OpenRecordsetRW("rstX",V.Local.sQuery)
+
+F.Intrinsic.Control.If(V.ODBC.conx!rstX.EOF,=,True)
+	F.odbc.conx!rstX.AddNew
+	F.ODBC.conx!rstX.Set!RPT_ID(V.Screen.F_Main!txtID.Text)
+	F.ODBC.conx!rstX.Set!seq(V.Screen.F_Main!txtSeq.text)
+F.Intrinsic.Control.EndIf
+
+F.ODBC.conx!rstX.Set!PRINTER(V.Screen.F_Main!txtPrinter.Text.trim)
+F.ODBC.conx!rstX.Set!PRINT(V.Screen.F_Main!chkActivePrint.Value.trim)
+f.Intrinsic.Control.If(V.Screen.F_Main!txtCopies.Text.isnumeric,=,true)
+	F.ODBC.conx!rstX.Set!COPIES(V.Screen.F_Main!txtCopies.Text)
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rstX.Set!EMAIL(V.Screen.F_Main!chkEmail.Value)
+Gui.F_Main.gsflexgrid2.GetTextMatrix(0,1,V.Local.shold)
+F.ODBC.conx!rstX.Set!EMAIl1(V.Local.shold.trim)
+Gui.F_Main.gsflexgrid2.GetTextMatrix(0,2,V.Local.shold)
+F.ODBC.conx!rstX.Set!EMAIl2(V.Local.shold.trim)
+Gui.F_Main.gsflexgrid2.GetTextMatrix(0,3,V.Local.shold)
+F.ODBC.conx!rstX.Set!EMAIl3(V.Local.shold.trim)
+Gui.F_Main.gsflexgrid2.GetTextMatrix(0,4,V.Local.shold)
+F.ODBC.conx!rstX.Set!EMAIl4(V.Local.shold.trim)
+Gui.F_Main.gsflexgrid2.GetTextMatrix(0,5,V.Local.shold)
+F.ODBC.conx!rstX.Set!EMAIl5(V.Local.shold.trim)
+F.ODBC.conx!rstX.Set!DEFAULT_FROM(V.Screen.F_Main!cboFrom.Text.trim)
+F.ODBC.conx!rstX.Set!SUBJECT(V.Screen.F_Main!txtSubject.Text.trim)
+F.ODBC.conx!rstx.Set!DESCRIPTION(V.Screen.F_Main!txtDescription.Text.trim)
+f.Intrinsic.Control.If(V.Screen.F_Main!dlDay.Text.isnumeric,=,true)
+	f.ODBC.conx!rstX.Set!PERIOD_DAY(V.Screen.F_Main!dlDay.Text.trim)
+F.Intrinsic.Control.EndIf
+F.odbc.conx!rstX.Set!PERIOD_START(V.Screen.F_Main!dpStart.Value)
+F.Intrinsic.Control.SelectCase(V.Screen.F_Main!dlRun.Text)
+	F.Intrinsic.Control.Case("")
+		V.Local.shold.Set(0)
+	F.Intrinsic.Control.Case("Daily")
+		V.Local.shold.Set(1)
+	F.Intrinsic.Control.Case("Weekly")
+		V.Local.shold.Set(2)
+	F.Intrinsic.Control.Case("Monthly")
+		V.Local.shold.Set(3)
+	F.Intrinsic.Control.Case("Quarterly")
+		V.Local.shold.Set(4)
+	F.Intrinsic.Control.Case("Yearly")
+		V.Local.shold.Set(5)
+F.Intrinsic.Control.EndSelect
+F.Intrinsic.Debug.SetLA("Period Type: ",V.Local.shold,".")
+F.ODBC.conx!rstX.Set!PERIOD_TYPE(V.Local.shold)
+
+F.ODBC.conx!rstX.Update
+
+F.ODBC.conx!rstX.Close
+F.Intrinsic.Math.Sub(V.screen.F_Main!gsflexgrid1.Rows,1,V.Local.irows)
+F.Intrinsic.Debug.Stop
+
+F.Intrinsic.Control.For(V.Local.iR,1,V.local.irows,1)
+	Gui.F_Main.gsflexgrid1.GetTextMatrix(0,V.Local.iR,V.Local.shold)
+	F.Intrinsic.Control.If(V.Local.shold.Trim,<>,"")
+		F.Intrinsic.String.Concat("SELECT * FROM ATG_3021_BI_PARAM WHERE RPT_ID = '",V.Screen.F_Main!txtID.Text,"' AND SEQUENCE = ",V.Local.ir," AND SEQ = ",V.Screen.F_Main!txtSeq.text,V.Local.sQuery)
+		F.ODBC.Connection!conx.OpenRecordsetRW("rstX",V.Local.sQuery)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstX.EOF,=,True)
+			F.odbc.conx!rstX.AddNew
+			F.ODBC.conx!rstX.Set!RPT_ID(V.Screen.F_Main!txtID.Text)
+			F.ODBC.conx!rstX.Set!SEQUENCE(V.Local.ir)
+		F.Intrinsic.Control.EndIf
+		Gui.F_Main.gsflexgrid1.GetTextMatrix(0,V.Local.iR,V.Local.shold.trim)
+		F.Intrinsic.String.Left(V.Local.shold,60,V.Local.shold)
+		F.ODBC.conx!rstX.Set!PARAM(V.Local.shold.trim)
+		F.ODBC.conx!rstx.Set!SEQ(V.Screen.F_Main!txtSeq.Text)
+		Gui.F_Main.gsflexgrid1.GetTextMatrix(2,V.Local.iR,V.Local.shold.trim)
+		'F.ODBC.conx!rstx.Set!DYNAMIC_ADD(V.Local.shold)
+
+		Gui.F_Main.gsflexgrid1.GetTextMatrix(1,V.Local.iR,V.Local.shold.trim)
+		F.Intrinsic.String.Left(V.Local.shold,100,V.Local.shold)
+		F.ODBC.conx!rstX.Set!VALUE(V.Local.shold.trim)
+		F.ODBC.conx!rstX.Update
+		F.ODBC.conx!rstX.Close
+	F.Intrinsic.Control.endif
+F.Intrinsic.Control.Next(V.Local.iR)
+
+F.Intrinsic.UI.Msgbox("Save Complete")
+F.Intrinsic.Control.CallSub(Clear)
+
+Program.Sub.cmdsave_click.End
+
+Program.Sub.cmdbrowseprinter_click.Start
+F.Intrinsic.Printer.SelectPrinterDialog
+
+Gui.F_Main.txtPrinter.Text(V.Printer.DeviceName)
+
+Program.Sub.cmdbrowseprinter_click.End
+
+Program.Sub.loadOptions.Start
+V.Local.sQuery.Declare(String)
+V.Local.dateX.Declare(Date)
+
+F.Intrinsic.String.Concat("SELECT * FROM ATG_3021_BI_RPTS_SET WHERE RPT_ID = '",V.Screen.F_Main!txtID.Text,"' AND SEQ = ",V.Screen.F_Main!txtSeq.text,V.Local.sQuery)
+
+F.ODBC.Connection!conx.OpenRecordsetRO("rstX",V.Local.sQuery)
+
+F.Intrinsic.Control.If(V.ODBC.conx!rstX.EOF,=,False)
+	Gui.F_Main.txtPrinter.Text(V.ODBC.conx!rstX.FieldValTrim!PRINTER)
+	Gui.F_Main.chkActivePrint.Value(V.ODBC.conx!rstX.FieldValTrim!PRINT)
+	Gui.F_Main.txtCopies.Text(V.ODBC.conx!rstX.FieldValTrim!copies)
+	Gui.F_Main.chkEmail.Value(V.ODBC.conx!rstX.FieldValTrim!EMAIL)
+	'load emails
+	Gui.F_Main.gsflexgrid2.TextMatrix(0,1,V.ODBC.conx!rstX.FieldValTrim!EMAIL1)
+	Gui.F_Main.gsflexgrid2.TextMatrix(0,2,V.ODBC.conx!rstX.FieldValTrim!EMAIL2)
+	Gui.F_Main.gsflexgrid2.TextMatrix(0,3,V.ODBC.conx!rstX.FieldValTrim!EMAIL3)
+	Gui.F_Main.gsflexgrid2.TextMatrix(0,4,V.ODBC.conx!rstX.FieldValTrim!EMAIL4)
+	Gui.F_Main.gsflexgrid2.TextMatrix(0,5,V.ODBC.conx!rstX.FieldValTrim!EMAIL5)
+	Gui.F_Main.txtSubject.Text(V.ODBC.conx!rstX.FieldValTrim!SUBJECT)
+	Gui.F_Main.cboFrom.Text(V.ODBC.conx!rstX.FieldValTrim!DEFAULT_FROM)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstX.FieldValIsNull!PERIOD_DAY,=,False)
+		Gui.F_Main.dlDay.Text(V.ODBC.conx!rstX.FieldVal!PERIOD_DAY)
+
+		F.Intrinsic.Control.SelectCase(V.odbc.conx!rstX.FieldVal!PERIOD_TYPE)
+			F.Intrinsic.Control.Case(0)
+				Gui.F_Main.dlRun.text(" ")
+			F.Intrinsic.Control.Case(1)
+				Gui.F_Main.dlRun.text("Daily")
+			F.Intrinsic.Control.Case(2)
+				Gui.F_Main.dlRun.text("Weekly")
+			F.Intrinsic.Control.Case(3)
+				Gui.F_Main.dlRun.text("Monthly")
+			F.Intrinsic.Control.Case(4)
+				Gui.F_Main.dlRun.text("Quarterly")
+			F.Intrinsic.Control.Case(5)
+				Gui.F_Main.dlRun.text("Yearly")
+		F.Intrinsic.Control.EndSelect
+		F.Intrinsic.Debug.Stop
+
+		V.Local.dateX.Set(V.ODBC.conx!rstX.FieldVal!PERIOD_START)
+		Gui.F_Main.dpStart.Value(V.local.dateX)
+	F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.If(V.ODBC.conx!rstX.FieldValIsNull!LAST_RUN,=,False)
+		F.Intrinsic.String.Format(V.ODBC.conx!rstX.FieldVal!LAST_RUN,"MM/DD/YYYY",V.Local.sQuery)
+		F.Intrinsic.String.Concat("Last Run: ",V.Local.sQuery,V.Local.sQuery)
+		Gui.F_Main.lblLast.Caption(V.Local.sQuery)
+	F.Intrinsic.Control.endif
+F.Intrinsic.Control.EndIf
+Gui.F_Main.gsflexgrid1.FixedRows(1)
+Gui.F_Main.gsflexgrid2.FixedRows(1)
+F.ODBC.conx!rstX.Close
+
+Program.Sub.loadOptions.End
+
+Program.Sub.loadParams.Start
+V.Local.sQuery.Declare(String)
+V.Local.ir.Declare(Long)
+V.Local.shold.Declare(String)
+
+
+F.Intrinsic.String.Concat("SELECT * FROM ATG_3021_BI_PARAM WHERE RPT_ID = '",V.Screen.F_Main!txtID.Text,"' AND SEQ = ",V.Screen.F_Main!txtSeq.text," ORDER BY SEQUENCE",V.Local.sQuery)
+F.ODBC.Connection!conx.OpenRecordsetRo("rstX",V.Local.sQuery)
+V.Local.ir.Set(1)
+
+F.Intrinsic.Control.dountil(V.ODBC.conx!rstX.EOF,=,True)
+	F.Intrinsic.Control.If(V.Local.ir,<,15)
+		Gui.F_Main.gsflexgrid1.TextMatrix(0,V.Local.iR,V.ODBC.conx!rstX.FieldValTrim!PARAM)
+		Gui.F_Main.gsflexgrid1.TextMatrix(1,V.Local.iR,V.ODBC.conx!rstX.FieldValTrim!VALUE)
+	F.Intrinsic.Control.endif
+	gui.F_Main.gsflexgrid1.ApplyStyle(V.Local.ir,1)
+	F.Intrinsic.Math.Add(V.Local.ir,1,V.Local.ir)
+	F.ODBC.conx!rstX.MoveNext
+F.Intrinsic.Control.Loop
+F.ODBC.conx!rstX.Close
+Gui.F_Main.gsflexgrid1.FixedRows(1)
+Gui.F_Main.gsflexgrid2.FixedRows(1)
+
+Program.Sub.loadParams.End
+
+Program.Sub.Clear.Start
+V.Local.iR.Declare(Long)
+
+Gui.F_Main.txtPrinter.Text("")
+Gui.F_Main.chkActivePrint.Value(0)
+Gui.F_Main.txtCopies.Text("")
+Gui.F_Main.chkEmail.Value(0)
+Gui.F_Main.txtID.Text("")
+Gui.F_Main.txtDescription.Text("")
+Gui.F_Main.txtSubject.text("")
+Gui.F_Main.gsflexgrid2.Rows(1)
+Gui.F_Main.gsflexgrid2.Rows(6)
+Gui.F_Main.gsflexgrid1.Fixedrows(1)
+Gui.F_Main.txtSeq.Text("")
+Gui.F_Main.gsflexgrid1.Rows(1)
+Gui.F_Main.gsflexgrid1.Rows(15)
+Gui.F_Main.gsflexgrid2.Fixedrows(1)
+Gui.F_Main.cboFrom.Text("")
+Gui.F_Main.lblLast.Caption("")
+Gui.F_Main.dlday.text("1")
+Gui.F_Main.dlRun.text(" ")
+
+Program.Sub.Clear.End
+
+Program.Sub.cmddelete_click.Start
+V.Local.squery.Declare(String)
+
+F.Intrinsic.String.Concat("DELETE FROM ATG_3021_BI_RPTS_SET WHERE RPT_ID = '",V.Screen.F_Main!txtID.Text,"' AND SEQ = ",V.Screen.F_Main!txtSeq.text,V.Local.sQuery)
+F.ODBC.Connection!conx.Execute(V.Local.sQuery)
+
+F.Intrinsic.String.Concat("DELETE FROM ATG_3021_BI_PARAM WHERE RPT_ID = '",V.Screen.F_Main!txtID.Text,"' AND SEQ = ",V.Screen.F_Main!txtSeq.text,V.Local.sQuery)
+F.ODBC.Connection!conx.Execute(V.Local.sQuery)
+
+F.Intrinsic.UI.Msgbox("Delete Complete")
+F.Intrinsic.Control.CallSub(Clear)
+
+Program.Sub.cmddelete_click.End
+
+Program.Sub.CheckTable.Start
+F.Intrinsic.Control.ErrorResume(True)
+F.Intrinsic.Control.ClearErrors
+F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT SEQ FROM ATG_3021_BI_RPTS_SET")
+F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_RPTS_SET  ADD COLUMN SEQ INTEGER DEFAULT '1'")
+	F.ODBC.Connection!conx.Execute("UDATE ATG_3021_BI_RPTS_SET  SET SEQ =1")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+F.Intrinsic.Debug.Stop
+
+F.Intrinsic.Control.ClearErrors
+F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT DESCRIPTION FROM ATG_3021_BI_RPTS_SET")
+F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_RPTS_SET  ADD COLUMN DESCRIPTION CHAR(100)")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+F.Intrinsic.Control.ClearErrors
+F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT SEQ FROM ATG_3021_BI_PARAM")
+F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_PARAM  ADD COLUMN SEQ INTEGER DEFAULT '1'")
+	F.ODBC.Connection!conx.Execute("UDATE ATG_3021_BI_PARAM  SET SEQ =1")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+'SMC 9-6-11:  Commented out this and separated it out due to errors a customer was getting
+'F.Intrinsic.Control.ClearErrors
+'F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT LAST_RUN FROM ATG_3021_BI_PARAM")
+'F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+'	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_RPTS_SET( ADD COLUMN LAST_RUN DATE, ADD COLUMN PERIOD_TYPE INTEGER, ADD COLUMN PERIOD_DAY INTEGER, ADD COLUMN PERIOD_START DATE)")
+'F.Intrinsic.Control.Else
+'	F.ODBC.conx!rst.Close
+'F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ClearErrors
+F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT LAST_RUN FROM ATG_3021_BI_RPTS_SET")
+F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_RPTS_SET ADD COLUMN LAST_RUN DATE")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+F.Intrinsic.Control.ClearErrors
+F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT PERIOD_TYPE FROM ATG_3021_BI_RPTS_SET")
+F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_RPTS_SET ADD COLUMN PERIOD_TYPE INTEGER")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+F.Intrinsic.Control.ClearErrors
+F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT PERIOD_DAY FROM ATG_3021_BI_RPTS_SET")
+F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_RPTS_SET ADD COLUMN PERIOD_DAY INTEGER")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+F.Intrinsic.Control.ClearErrors
+F.ODBC.Connection!conx.OpenRecordsetRO("rst","SELECT PERIOD_START FROM ATG_3021_BI_RPTS_SET")
+F.Intrinsic.Control.If(V.Ambient.ErrorDescription,<>,"")
+	F.ODBC.Connection!conx.Execute("ALTER TABLE ATG_3021_BI_RPTS_SET ADD COLUMN PERIOD_START DATE")
+F.Intrinsic.Control.EndIf
+F.ODBC.conx!rst.Close
+
+F.Intrinsic.Control.ErrorResume(False)
+
+Program.Sub.CheckTable.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$$}$12:00:00 AM$}$False
+${$5$}$20.1.8413.19752$}$1
+${$6$}$dhughes$}$20230201102426077$}$c2B0VQGdJshzQXwjoX6JDhriKzL/P++DxDsku86ZOK3vktQKh3iiowpvD4nMh5Q/c9FvnzEYF4Q=
+Program.Sub.Comments.End

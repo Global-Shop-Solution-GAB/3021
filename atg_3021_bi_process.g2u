@@ -1,0 +1,279 @@
+﻿Program.Sub.ScreenSU.Start
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+V.Local.sBI.Declare(String)
+V.Local.squery.Declare(String)
+V.Local.sparam.Declare(String)
+V.Local.sVal.Declare(String)
+V.Local.sEmail.Declare(String)
+V.Local.sFile.Declare(String)
+V.Local.sData.Declare(String)
+V.Local.sname.Declare(String)
+V.Local.sSubject.Declare(String)
+V.Local.sBody.Declare(String)
+V.Local.shold.Declare(String)
+V.Local.sAttach.Declare(String)
+V.Local.sTemp.Declare(String)
+V.Local.sDateTime.Declare(String)
+V.Local.dateStart.Declare(String)
+V.local.dateEnd.Declare(String)
+V.Local.iC.Declare(Long)
+V.Local.bRet.Declare(Boolean)
+V.Local.bExists.Declare(Boolean)
+V.Local.sAttachFileAndDir.Declare()
+V.Local.sAttachFile.Declare()
+V.Local.sAttachDir.Declare()
+V.Local.iDo.Declare
+
+F.odbc.Connection!conx.OpenConnection(V.Ambient.PDSN,V.Ambient.Puser,V.Ambient.PPass)
+F.ODBC.Connection!conx.OpenRecordsetRO("rstX","SELECT * FROM ATG_3021_BI_RPTS_SET")
+F.Intrinsic.Control.DoUntil(V.ODBC.conx!rstX.EOF,=,True)
+	F.Intrinsic.Control.If(V.ODBC.conx!rstX.FieldValIsNull!PERIOD_TYPE,=,False)
+		V.Local.sparam.Set("")
+		V.Local.sVal.Set("")
+		
+		F.Intrinsic.Control.CallSub(Determineproc,"iProcType",V.ODBC.conx!rstX.FieldValLong!PERIOD_TYPE,"DateStart",V.odbc.conx!rstX.FieldValPervasiveDate!PERIOD_START)
+		V.Local.bRet.Set(V.Args.bret)
+		F.Intrinsic.Control.If(V.Args.dateStart,<>,"")
+			F.Intrinsic.string.Concat("SELECT PERIOD_START FROM ATG_3021_BI_RPTS_SET WHERE RPT_ID = '",V.odbc.conx!rstX.FieldValTrim!RPT_ID,"' AND SEQ = ",V.odbc.conx!rstX.FieldValTrim!SEQ,"  ",V.Local.squery)
+			F.ODBC.Connection!conx.OpenRecordsetRw("rstP",V.Local.squery)
+			F.Intrinsic.Control.If(V.ODBC.conx!rstP.EOF,=,False)
+				F.odbc.conx!rstP.Set!PERIOD_START(V.args.dateEnd)
+				F.odbc.conx!rstP.Update
+			F.Intrinsic.Control.EndIf
+			F.ODBC.conx!rstp.Close
+			F.Intrinsic.String.Concat("START_DATE*!*","END_DATE","",V.Local.sparam)
+			F.Intrinsic.String.Replace(V.Args.datestart,"-","",V.Local.dateStart)
+			F.Intrinsic.String.replace(V.Args.dateend,"-","",V.Local.dateEnd)
+			F.Intrinsic.String.Concat(V.local.datestart,"*!*",V.local.dateend,V.Local.sval)
+
+		F.Intrinsic.Control.endif
+	F.Intrinsic.Control.Else
+		V.Local.bRet.Set(True)
+		V.Local.sparam.Set("")
+		V.Local.sVal.Set("")
+		
+	F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.If(V.Local.bRet,=,True)
+		V.Local.sBI.Set(V.odbc.conx!rstX.FieldValTrim!RPT_ID)
+
+		F.Intrinsic.string.Concat("SELECT * FROM ATG_3021_BI_PARAM WHERE RPT_ID = '",V.Local.sBI,"' AND SEQ = ",V.odbc.conx!rstX.FieldValTrim!SEQ," ORDER BY SEQUENCE ",V.Local.squery)
+		F.ODBC.Connection!conx.OpenRecordsetRO("rstP",V.Local.squery)
+		
+		F.Intrinsic.Control.DoUntil(V.ODBC.conx!rstP.EOF,=,True)
+			F.Intrinsic.Control.If(V.odbc.conx!rstP.FieldValTrim!PARAM,<>,"")
+				F.Intrinsic.Control.If(V.Local.sparam,<>,"")
+					F.Intrinsic.String.Concat(V.Local.sparam,"*!*",V.odbc.conx!rstP.FieldValTrim!PARAM,V.Local.sparam)
+					F.Intrinsic.String.Concat(V.Local.sval,"*!*",V.odbc.conx!rstP.FieldValTrim!Value,V.Local.sval)
+				F.Intrinsic.Control.Else
+					V.Local.sVal.Set(V.ODBC.conx!rstP.FieldValTrim!value)
+					V.Local.sParam.Set(V.ODBC.conx!rstP.FieldValTrim!param)
+				F.Intrinsic.Control.EndIf
+			F.Intrinsic.control.EndIf
+			F.ODBC.ConX!rstP.MoveNext
+		F.Intrinsic.control.loop
+		F.Intrinsic.string.Split(V.Local.sparam,"*!*",V.Local.sparam)
+		F.Intrinsic.String.Split(V.Local.sVal,"*!*",V.Local.sVal)
+		F.ODBC.conx!rstP.Close
+		F.Intrinsic.Control.If(V.ODBC.conx!rstX.FieldVal!PRINT,=,1)
+			V.Local.sData.Set("")
+			
+			F.Intrinsic.Control.For(V.Local.iC,1,V.ODBC.conx!rstX.FieldVal!Copies,1)
+			'	F.Global.BI.PrintReport(V.ODBC.conx!rstX.FieldValtrim!RPT_ID,1,V.Local.sParam,V.Local.sVal,V.ODBC.conx!rstX.FieldValTrim!PRINTER,True)
+				'F.Global.BI.PrintReport(V.ODBC.conx!rstX.FieldValtrim!RPT_ID,0,V.Local.sParam,V.Local.sVal)
+			F.Intrinsic.Control.Next(V.Local.iC)
+		F.Intrinsic.Control.Endif
+
+		F.Intrinsic.Control.If(V.ODBC.conx!rstX.FieldVal!EMAIL,=,1)
+			'call courier against email
+			F.Intrinsic.Control.If(V.Local.sVal(0),=,"*")
+				V.Local.sTemp.Set("ALL")
+			F.Intrinsic.Control.Else
+				V.Local.sTemp.Set(V.Local.sVal(0))
+			F.Intrinsic.Control.EndIf
+			F.Intrinsic.String.format(V.Ambient.Now,"YYYYMMDDmmhhss",V.Local.sDateTime)
+			f.Intrinsic.Control.If(V.Caller.FilesDir.right1,=,"\")
+				F.Intrinsic.String.Concat(V.Caller.FilesDir,V.odbc.conx!rstX.FieldValTrim!RPT_ID,"-",V.odbc.conx!rstX.FieldValTrim!DESCRIPTION,"-",V.Local.sDatetime,".pdf",V.Local.shold)
+			F.Intrinsic.Control.Else
+				F.Intrinsic.String.Concat(V.Caller.FilesDir,"\",V.odbc.conx!rstX.FieldValTrim!RPT_ID,"-",V.odbc.conx!rstX.FieldValTrim!DESCRIPTION,"-",V.Local.sDatetime,".pdf",V.Local.shold)
+			F.Intrinsic.Control.EndIf
+			F.Global.BI.SaveReport(V.Local.sBI,1,V.Local.sparam,V.Local.sVal,V.Local.shold)
+			
+			'Do loop waiting for file to be created, Max 5 minutes
+			V.Local.bRet.Set(False)
+			V.Local.iDo.Set(0)
+			F.Intrinsic.Control.DoUntil(V.Local.bRet,=,True)				
+				F.Intrinsic.Control.If(V.Local.iDo,>,300)
+					'if 5 minutes have passed, exit the loop while bRet is still False
+					F.Intrinsic.Control.ExitDo
+				F.Intrinsic.Control.ElseIf(V.Local.iDo,>,0)
+					'First step i don't want it to wait the 1 second, just add and check really quick
+					F.Intrinsic.UI.SleepMS(1000)
+				F.Intrinsic.Control.EndIf
+				'Increment and check if the file exists for the Until check
+				F.Intrinsic.Math.Add(V.Local.iDo,1,V.Local.iDo)
+				F.Intrinsic.File.Exists(V.Local.shold,V.Local.bRet)
+			F.Intrinsic.Control.Loop
+			
+			F.Intrinsic.debug.Stop
+			F.Intrinsic.Control.If(V.Local.bRet,=,True)
+				F.Intrinsic.String.Concat("GSS File Sent From Task Scheduler: ",V.Local.shold,V.Local.sSubject)
+				F.Intrinsic.String.Concat("The file attached has been sent from the GSS Task Scheduler.",V.Ambient.NewLine,V.Ambient.NewLine,V.Local.sBody)
+				F.intrinsic.string.concat(V.local.sbody,"PLEASE NOTE: The information contained in this message is privileged and confidential. ",V.local.sbody)
+				F.intrinsic.string.concat(V.local.sbody,"You are hereby notified that any distribution, dissemination or copying of this communication ",V.local.sbody)
+				F.intrinsic.string.concat(V.local.sbody,"is strictly prohibited. If you have received this communication in error you should immediately ",V.local.sbody)
+				F.intrinsic.string.concat(V.local.sbody,"delete this message. ",V.ambient.newline,V.local.sbody)
+				F.Intrinsic.String.Split(V.Local.shold, "\", V.Local.sAttach)
+				V.Local.sAttachFile.Set(V.Local.sAttach(V.Local.sAttach.UBound))
+				V.Local.sAttachDir.Set(V.Caller.FilesDir)
+				F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sAttachFile, V.Local.sAttachDir, V.Local.sAttachFileAndDir)
+				F.Intrinsic.Control.For(V.Local.iC,1,5,1)
+					F.Intrinsic.Control.If(V.ODBC.conx!rstX.FieldVal!EMAIL[v.local.ic],<>,"")
+						F.Global.Security.GetFullName(V.ODBC.conx!rstX.FieldValTrim!DEFAULT_FROM,V.Local.sname)
+						F.Global.Security.GetUserEmail(V.ODBC.conx!rstX.FieldValTrim!DEFAULT_FROM,V.Local.sEmail)
+						F.Intrinsic.Debug.SetLA("Sending e-mail to/from: ",V.ODBC.conx!rstX.FieldVal!EMAIL[v.local.ic]," attachment: ",V.Local.shold)
+						F.Intrinsic.File.Exists(V.Local.shold,V.Local.bExists)
+						F.Intrinsic.Control.If(V.Local.bExists,=,False)
+							F.Intrinsic.Debug.SetLA("File does not exist")
+						F.Intrinsic.Control.EndIf
+						
+						' Henry, June 2020
+						' Removing this CreateEMMessage call. Replacing it with QueueMessage.
+						'F.Global.Messaging.CreateEMMessage(V.ODBC.conx!rstX.FieldVal!EMAIL[v.local.ic],V.ODBC.conx!rstX.FieldVal!EMAIL[v.local.ic],V.Local.sEmail,V.local.sname,V.ODBC.conx!rstX.FieldValTrim!SUBJECT,V.Local.sbody,V.Local.shold,False)
+						
+						
+						' Henry, June 2020
+						' New QueueMessage stuff starts here.
+						V.Local.iUserId.Declare()
+						F.Global.Security.GetUserId(V.Caller.User, V.Caller.CompanyCode, V.Local.iUserId)
+						
+						V.Local.sSenderEmailAndName.Declare()
+						F.Intrinsic.String.Build("{0}*!*{1}", V.Local.sEmail, V.Local.sname, V.Local.sSenderEmailAndName)
+						
+						' Old logic made the email and name the same.
+						V.Local.sRecipientEmailAndName.Declare()
+						F.Intrinsic.String.Build("{0}*!*{1}",V.ODBC.conx!rstX.FieldVal!EMAIL[v.local.ic], V.ODBC.conx!rstX.FieldVal!EMAIL[v.local.ic], V.Local.sRecipientEmailAndName)
+						
+						' Old logic made the Reply To the same as the sender email.
+						V.Local.sReplyToEmail.Declare()
+						V.Local.sReplyToEmail.Set(V.Local.sEmail)
+						
+						F.Global.Messaging.QueueMessage(V.Caller.CompanyCode, V.Local.iUserId, "", V.ODBC.conx!rstX.FieldValTrim!SUBJECT, V.Local.sSenderEmailAndName, V.Local.sRecipientEmailAndName, V.Local.sbody, "", V.Local.sReplyToEmail, False, "", "", "", "", "", "", "", V.Local.sAttachFileAndDir, False)
+						
+						' Old logic would make EXCLUDEFROMHIST and DONOTALLOWRESENT True.
+						F.ODBC.Connection!conCommon.OpenConnection(V.Ambient.CCon, V.Ambient.Cuser, V.Ambient.Cpass)
+						V.Local.iMostRecentEid.Declare()
+						F.ODBC.Connection!conCommon.ExecuteAndReturn("SELECT TOP 1 eid FROM courier_emailbody ORDER BY eid DESC;", V.Local.iMostRecentEid)
+						V.Local.sSql.Declare()
+						F.Intrinsic.String.Build("UPDATE courier_emailbody SET excludefromhist = 1, donotallowresend = 1 WHERE eid = {0};", V.Local.iMostRecentEid, V.Local.sSql)
+						F.ODBC.Connection!conCommon.Execute(V.Local.sSql)
+						F.ODBC.Connection!conCommon.Close()
+						
+					F.Intrinsic.Control.EndIf
+				F.Intrinsic.Control.Next(V.Local.iC)
+			F.Intrinsic.Control.Else
+				V.Local.sMSG.declare(String)
+				F.Intrinsic.String.Concat("Unable to create PDF file. Please make sure parameters are set for Report ID: ",V.odbc.conx!rstX.FieldValTrim!RPT_ID," in BI Setup.",V.Local.sMsg)
+				F.Intrinsic.UI.Msgbox(V.Local.sMSG,"Missing Parameters:")
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.EndIf
+		F.Intrinsic.string.Concat("SELECT LAST_RUN FROM ATG_3021_BI_RPTS_SET WHERE RPT_ID = '",V.odbc.conx!rstX.FieldValTrim!RPT_ID,"' AND SEQ = ",V.odbc.conx!rstX.FieldValTrim!SEQ,"  ",V.Local.squery)
+		F.ODBC.Connection!conx.OpenRecordsetRw("rstP",V.Local.squery)
+		F.Intrinsic.Control.If(V.ODBC.conx!rstP.EOF,=,False)
+			F.odbc.conx!rstP.Set!LAST_RUN(V.ambient.now)
+			F.odbc.conx!rstP.Update
+		F.Intrinsic.Control.EndIf
+		F.ODBC.conx!rstp.Close
+
+	F.Intrinsic.Control.endif
+	
+	F.ODBC.conx!rstX.MoveNext
+F.Intrinsic.Control.Loop
+F.ODBC.conx!rstX.Close
+F.ODBC.Connection!conx.Close
+F.Intrinsic.Control.End
+
+Program.Sub.Main.End
+
+Program.Sub.DetermineProc.Start
+V.Local.iProcType.Declare(Long)
+V.Local.dateLastRun.Declare(Date)
+V.Local.dateStart.Declare(Date)
+V.Local.dateRet.Declare(Date)
+V.Local.sYear.Declare(String)
+V.Local.smonth.Declare(String)
+V.Local.sDay.Declare(String)
+
+F.Intrinsic.Variable.AddRV("bRet",False)
+F.Intrinsic.Variable.AddRV("dateStart","")
+F.Intrinsic.Variable.AddRV("dateEnd","")
+
+
+V.Local.iProcType.Set(V.Args.iProcType)
+F.Intrinsic.String.Replace(V.Args.datestart,"-","",V.Local.sDay)
+F.Intrinsic.String.Left(V.Local.sDay,4,V.Local.sYear)
+F.Intrinsic.String.Mid(V.Local.sDay,5,2,V.Local.smonth)
+F.Intrinsic.String.Right(V.Local.sDay,2,V.Local.sday)
+F.Intrinsic.Date.DateSerial(V.Local.sYear,V.Local.smonth,V.Local.sDay,V.Local.dateStart)
+
+
+F.Intrinsic.Control.SelectCase(V.Local.iProcType)
+
+	F.Intrinsic.Control.Case(0)
+		F.Intrinsic.Variable.AddRV("bRet",True)
+		F.Intrinsic.Control.ExitSub
+	F.Intrinsic.Control.Case(1)
+		'Daily
+		F.Intrinsic.Control.If(V.Local.dateStart,<=,V.Ambient.Now)
+			F.Intrinsic.Variable.AddRV("bRet",True)
+			V.Local.dateStart.Set(V.Ambient.Now)
+			F.Intrinsic.Variable.AddRV("dateStart",V.Local.dateStart.PervasiveDate)
+			F.Intrinsic.Variable.AddRV("dateEnd",V.Local.datestart.PervasiveDate)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Case(2)
+		'weekly
+		F.Intrinsic.Date.DateAdd("D",7,V.Local.dateStart,V.Local.dateRet)
+		F.Intrinsic.Control.If(V.Local.dateRet,<=,V.ambient.Now)
+			F.Intrinsic.Variable.AddRV("bRet",True)
+			F.Intrinsic.Variable.AddRV("dateStart",V.local.dateStart.PervasiveDate)
+			F.Intrinsic.Variable.AddRV("dateEnd",V.local.dateRet.PervasiveDate)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Case(3)
+		'Montly
+		F.Intrinsic.Date.DateAdd("M",1,V.Local.dateStart,V.Local.dateRet)
+		F.Intrinsic.Control.If(V.Local.dateRet,<=,V.ambient.Now)
+			F.Intrinsic.Variable.AddRV("bRet",True)
+			F.Intrinsic.Variable.AddRV("dateStart",V.local.dateStart.PervasiveDate)
+			F.Intrinsic.Variable.AddRV("dateEnd",V.local.dateRet.PervasiveDate)
+		F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Case(4)
+		'Quarterly
+		F.Intrinsic.Date.DateAdd("M",3,V.Local.dateStart,V.Local.dateRet)
+		F.Intrinsic.Control.If(V.Local.dateRet,<=,V.ambient.Now)
+			F.Intrinsic.Variable.AddRV("bRet",True)
+			F.Intrinsic.Variable.AddRV("dateStart",V.local.dateStart.PervasiveDate)
+			F.Intrinsic.Variable.AddRV("dateEnd",V.local.dateRet.PervasiveDate)
+		F.Intrinsic.Control.EndIf
+
+	F.Intrinsic.Control.Case(5)
+		'Yearly
+		F.Intrinsic.Date.DateAdd("YYYY",1,V.Local.dateStart,V.Local.dateRet)
+		F.Intrinsic.Control.If(V.Local.dateRet,<=,V.ambient.Now)
+			F.Intrinsic.Variable.AddRV("bRet",True)
+			F.Intrinsic.Variable.AddRV("dateStart",V.local.dateStart.PervasiveDate)
+			F.Intrinsic.Variable.AddRV("dateEnd",V.local.dateRet.PervasiveDate)
+		F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.EndSelect
+
+Program.Sub.DetermineProc.End
+
+Program.Sub.Comments.Start
+${$0$}$$}$$}$12:00:00 AM$}$False
+Program.Sub.Comments.End
